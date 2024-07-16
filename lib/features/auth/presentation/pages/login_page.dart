@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:xanoo_admin/core/widgets/x_green_elevated_button.dart';
-import 'package:xanoo_admin/core/widgets/x_white_elevated_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
