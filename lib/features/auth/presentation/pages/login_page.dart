@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:xanoo_admin/core/app/app_constants.dart';
+import 'package:xanoo_admin/core/widgets/x_green_elevated_button.dart';
+import 'package:xanoo_admin/core/widgets/x_white_elevated_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +12,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +35,28 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.max,
             children: [
               SvgPicture.asset('assets/svg/welcome.svg', height: 250),
-              const TitleWidget(title: 'WELCOME TO xDASHBOARD'),
+              const TitleWidget(title: 'BIENVENUE SUR xDASHBOARD'),
               const Gap(40),
-              TextFormField(),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: "Entrez votre courriel",
+                  hintText: 'Courriel',
+                  prefixIcon: Icon(Icons.email),
+                ),
+              ),
               const Gap(16),
-              TextFormField(),
+              TextFormField(
+                obscureText: true,
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.password),
+                  labelText: "Entrez votre mot de passe",
+                  hintText: 'Mot de passe',
+                ),
+              ),
               const Gap(16),
-              ElevatedButton(
+              XGreenElevatedButton(
                 onPressed: () {},
-                child: const Text("Login"),
+                label: "Se connecter",
               ),
             ],
           ),

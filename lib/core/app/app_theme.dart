@@ -26,8 +26,6 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(palette.primary),
-          foregroundColor: WidgetStatePropertyAll(palette.onPrimary),
           minimumSize: const WidgetStatePropertyAll(
             Size.fromHeight(50),
           ),
