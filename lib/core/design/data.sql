@@ -1,0 +1,38 @@
+-- documents
+    -- id serial
+    -- title text
+    -- description text
+    -- isbn varchar(13)
+    -- file_url text
+    -- cover_url text
+    -- created_at timestamp
+    -- updated_at timestamp
+
+-- authors
+    -- id serial
+    -- first_name varchar(50)
+    -- last_name varchar(50)
+    -- gender char
+    -- birthday date
+    -- created_at timestamp
+    -- updated_at timestamp
+
+-- documents_authors
+    -- PRIMARY KEY (author_id, document_id)
+    -- author_id integer reference on authors(id)
+    -- document_id integer reference on documents(id)
+    -- created_at timestamp
+    -- updated_at timestamp
+
+-- profiles
+    -- id uuid not null
+    -- first_name varchar(50) not null
+    -- last_name varchar(50) not null
+    -- gender char not null default 'M'
+    -- birthday date
+    -- city_id reference on city(id) text
+    -- phone text(8) not null
+    -- email text
+    -- role text
+    -- created_at timestamp default current_timestamp
+    -- updated_at timestamp
