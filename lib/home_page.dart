@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:xanoo_admin/core/app/app_constants.dart';
 import 'package:xanoo_admin/features/auth/presentation/pages/login_page.dart';
 
 class HomePage extends StatelessWidget {
