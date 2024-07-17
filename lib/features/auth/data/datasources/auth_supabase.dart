@@ -7,7 +7,11 @@ abstract interface class AuthSupabase {
     required String email,
     required String password,
   });
+
+  Session? get currentSession;
+
   Future<UserModel> updateRole({required String id, required String role});
+  Future<UserModel?> getCurrentUser();
   Future<void> signOut();
 }
 
@@ -15,6 +19,9 @@ class AuthSupabaseImpl implements AuthSupabase {
   final SupabaseClient remoteClient;
 
   AuthSupabaseImpl(this.remoteClient);
+
+  @override
+  Session? get currentSession => remoteClient.auth.currentSession;
 
   @override
   Future<UserModel> signInWithEmailAndPassword({
@@ -51,7 +58,7 @@ class AuthSupabaseImpl implements AuthSupabase {
           .eq('id', id)
           .select();
       return UserModel.fromMap(response.first);
-    } on PostgrestException catch (e) {
+    } on AuthException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
@@ -62,8 +69,23 @@ class AuthSupabaseImpl implements AuthSupabase {
   Future<void> signOut() async {
     try {
       await remoteClient.auth.signOut();
-    } on PostgrestException catch (e) {
+    } on AuthException catch (e) {
       throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<UserModel?> getCurrentUser() async {
+    try {
+      if (currentSession != null) {
+        final user = currentSession!.user;
+        final data =
+            await remoteClient.from('profiles').select().eq('id', user.id);
+        return UserModel.fromMap(data.first).copyWith(email: user.email);
+      }
+      return null;
     } catch (e) {
       throw ServerException(e.toString());
     }
