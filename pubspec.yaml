@@ -11,8 +11,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  app_links: ^3.5.0
+  fpdart: ^1.1.0
+  supabase_flutter: ^2.5.6
+  flutter_bloc: ^8.1.6
   flutter_svg: ^2.0.10+1
   form_field_validator: ^1.1.0
+  get_it: ^7.7.0
+  dotted_border: ^2.1.0
+  file_picker: ^5.2.0
+  uuid: ^4.4.0
+  internet_connection_checker_plus: ^2.5.0
   gap: ^3.0.1
 
 dev_dependencies:
