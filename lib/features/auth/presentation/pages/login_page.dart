@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:gap/gap.dart';
 import 'package:xanoo_admin/core/helpers/user_params.dart';
+import 'package:xanoo_admin/core/widgets/loading_widget.dart';
 import 'package:xanoo_admin/core/widgets/widget_helpers.dart';
 import 'package:xanoo_admin/core/widgets/x_green_elevated_button.dart';
 import 'package:xanoo_admin/features/auth/presentation/bloc/auth_bloc.dart';
@@ -59,11 +60,7 @@ class _LoginPageState extends State<LoginPage> {
           },
           builder: (context, state) {
             if (state is AuthLoading) {
-              return const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
+              return const LoadingWidget();
             }
             return Center(
               child: Form(
