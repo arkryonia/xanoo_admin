@@ -47,7 +47,6 @@ class _AuthorListPageState extends State<AuthorListPage> {
 
           if (state is AuthorFecthAllSuccess) {
             authors = state.authors;
-            print(authors[0]);
           }
         },
         builder: (context, state) {
