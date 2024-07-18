@@ -27,7 +27,10 @@ Future<void> main() async {
           ),
         ),
         BlocProvider(
-          create: (_) => AuthorBloc(fetchAllAuthors: sl()),
+          create: (_) => AuthorBloc(
+            fetchAllAuthors: sl(),
+            deleteAuthor: sl(),
+          ),
         ),
       ],
       child: const Xanoo(),

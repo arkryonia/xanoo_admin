@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:xanoo_admin/core/common/entities/author.dart';
 import 'package:xanoo_admin/core/helpers/no_params.dart';
+import 'package:xanoo_admin/features/library/domain/usecases/delete_author.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/fetch_all_authors.dart';
 
 part 'author_event.dart';
@@ -10,12 +11,28 @@ part 'author_state.dart';
 
 class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
   final FetchAllAuthors _fetchAllAuthors;
+  final DeleteAuthor _deleteAuthor;
 
-  AuthorBloc({required FetchAllAuthors fetchAllAuthors})
-      : _fetchAllAuthors = fetchAllAuthors,
+  AuthorBloc({
+    required FetchAllAuthors fetchAllAuthors,
+    required DeleteAuthor deleteAuthor,
+  })  : _fetchAllAuthors = fetchAllAuthors,
+        _deleteAuthor = deleteAuthor,
         super(AuthorInitial()) {
     on<AuthorEvent>((_, emit) => emit(AuthorLoading()));
     on<AuthorFetchAll>(_onAuthorFetchAll);
+    on<AuthorDelete>(_onAuthorDelete);
+  }
+
+  Future<FutureOr<void>> _onAuthorDelete(
+    AuthorDelete event,
+    Emitter<AuthorState> emit,
+  ) async {
+    final response = await _deleteAuthor(AuthorDeleteParams(id: event.id));
+    response.fold(
+      (error) => emit(AuthorFailure(error.message)),
+      (success) => emit(AuthorSuccess()),
+    );
   }
 
   Future<FutureOr<void>> _onAuthorFetchAll(

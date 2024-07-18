@@ -92,7 +92,12 @@ class _AuthorListPageState extends State<AuthorListPage> {
                           ),
                           const Gap(20),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context
+                                  .read<AuthorBloc>()
+                                  .add(AuthorDelete(authors[index].id));
+                              context.read<AuthorBloc>().add(AuthorFetchAll());
+                            },
                             icon: const Icon(
                               Icons.delete_forever,
                               color: Colors.red,

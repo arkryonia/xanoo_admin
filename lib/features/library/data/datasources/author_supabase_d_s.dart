@@ -33,7 +33,7 @@ class AuthorSupabaseDSImpl implements AuthorSupabaseDS {
     required String lastName,
   }) async {
     try {
-      final response = await remoteClient.from('public.authors').insert({
+      final response = await remoteClient.from('authors').insert({
         'gender': gender,
         'first_name': firstName,
         'last_name': lastName,
@@ -50,7 +50,7 @@ class AuthorSupabaseDSImpl implements AuthorSupabaseDS {
   @override
   Future<void> delete({required String id}) async {
     try {
-      await remoteClient.from('public.authors').delete().eq('id', id);
+      await remoteClient.from('authors').delete().eq('id', id);
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
