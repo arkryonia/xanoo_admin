@@ -39,11 +39,7 @@ class HomePage extends StatelessWidget {
             ),
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             actions: [
-              const Text("Acteurs"),
-              const Gap(20),
               const Text("Document"),
-              const Gap(20),
-              const Text("Profile"),
               const Gap(20),
               IconButton(
                 onPressed: () {

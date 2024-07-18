@@ -6,6 +6,7 @@ void showSnakeBar(BuildContext context, String message) {
     ..showSnackBar(
       SnackBar(
         content: Text(message),
+        backgroundColor: Theme.of(context).colorScheme.error,
       ),
     );
 }

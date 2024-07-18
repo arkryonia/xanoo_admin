@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:xanoo_admin/features/auth/domain/entities/user.dart';
+import 'package:xanoo_admin/core/common/entities/user.dart';
 
 class UserModel extends User {
   UserModel({

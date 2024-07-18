@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:xanoo_admin/core/error/failure.dart';
 import 'package:xanoo_admin/core/error/server_exception.dart';
 import 'package:xanoo_admin/features/auth/data/datasources/auth_supabase.dart';
-import 'package:xanoo_admin/features/auth/domain/entities/user.dart';
+import 'package:xanoo_admin/core/common/entities/user.dart';
 import 'package:xanoo_admin/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositroryImpl implements AuthRepository {

@@ -2,7 +2,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:xanoo_admin/core/error/failure.dart';
 import 'package:xanoo_admin/core/helpers/user_params.dart';
 import 'package:xanoo_admin/core/usecases/use_case.dart';
-import 'package:xanoo_admin/features/auth/domain/entities/user.dart';
+import 'package:xanoo_admin/core/common/entities/user.dart';
 import 'package:xanoo_admin/features/auth/domain/repositories/auth_repository.dart';
 
 class LoginUser implements UseCase<User, UserParams> {
