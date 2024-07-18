@@ -1,6 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:xanoo_admin/core/error/server_exception.dart';
-import 'package:xanoo_admin/features/authors/data/models/author_model.dart';
+import 'package:xanoo_admin/features/library/data/models/author_model.dart';
 
 abstract interface class AuthorSupabaseDS {
   Future<AuthorModel> create({

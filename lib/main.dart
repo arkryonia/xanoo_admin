@@ -4,6 +4,7 @@ import 'package:xanoo_admin/core/app/app_theme.dart';
 import 'package:xanoo_admin/core/common/cubit/app_user_cubit.dart';
 import 'package:xanoo_admin/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:xanoo_admin/features/auth/presentation/pages/login_page.dart';
+import 'package:xanoo_admin/features/library/presentation/blocs/authors/author_bloc.dart';
 import 'package:xanoo_admin/home_page.dart';
 import 'package:xanoo_admin/init_dependencies.dart';
 
@@ -24,6 +25,9 @@ Future<void> main() async {
             appUserCubit: sl(),
             currentUser: sl(),
           ),
+        ),
+        BlocProvider(
+          create: (_) => AuthorBloc(fetchAllAuthors: sl()),
         ),
       ],
       child: const Xanoo(),

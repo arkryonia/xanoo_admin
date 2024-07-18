@@ -5,13 +5,20 @@ import 'package:xanoo_admin/core/widgets/loading_widget.dart';
 import 'package:xanoo_admin/core/widgets/widget_helpers.dart';
 import 'package:xanoo_admin/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:xanoo_admin/features/auth/presentation/pages/login_page.dart';
+import 'package:xanoo_admin/features/library/presentation/pages/author_list_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  static MaterialPageRoute goToLogin() {
+  static MaterialPageRoute goToLoginPage() {
     return MaterialPageRoute(
       builder: (context) => const LoginPage(),
+    );
+  }
+
+  static MaterialPageRoute goToAuthorListPage() {
+    return MaterialPageRoute(
+      builder: (context) => const AuthorListPage(),
     );
   }
 
@@ -20,7 +27,7 @@ class HomePage extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthInitial) {
-          Navigator.pushReplacement(context, HomePage.goToLogin());
+          Navigator.pushReplacement(context, HomePage.goToLoginPage());
         }
 
         if (state is AuthFailure) {
@@ -39,7 +46,12 @@ class HomePage extends StatelessWidget {
             ),
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             actions: [
-              const Text("Document"),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context, HomePage.goToAuthorListPage());
+                },
+                icon: const Icon(Icons.group),
+              ),
               const Gap(20),
               IconButton(
                 onPressed: () {

@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:xanoo_admin/core/error/failure.dart';
-import 'package:xanoo_admin/features/authors/domain/entities/author.dart';
+import 'package:xanoo_admin/core/common/entities/author.dart';
 
 abstract interface class AuthorRepository {
   // Fetch all

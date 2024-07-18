@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:xanoo_admin/features/authors/domain/entities/author.dart';
+import 'package:xanoo_admin/core/common/entities/author.dart';
 
 class AuthorModel extends Author {
   AuthorModel({
@@ -28,8 +28,8 @@ class AuthorModel extends Author {
     return {
       'id': id,
       'gender': gender,
-      'firstName': firstName,
-      'lastName': lastName,
+      'first_name': firstName,
+      'last_name': lastName,
     };
   }
 
@@ -37,8 +37,8 @@ class AuthorModel extends Author {
     return AuthorModel(
       id: map['id'] ?? '',
       gender: map['gender'] ?? '',
-      firstName: map['firstName'] ?? '',
-      lastName: map['lastName'] ?? '',
+      firstName: map['first_name'] ?? '',
+      lastName: map['last_name'] ?? '',
     );
   }
 

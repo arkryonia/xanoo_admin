@@ -9,11 +9,17 @@ import 'package:xanoo_admin/features/auth/domain/usecases/get_current_user.dart'
 import 'package:xanoo_admin/features/auth/domain/usecases/login_user.dart';
 import 'package:xanoo_admin/features/auth/domain/usecases/logout_user.dart';
 import 'package:xanoo_admin/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:xanoo_admin/features/library/data/datasources/author_supabase_d_s.dart';
+import 'package:xanoo_admin/features/library/data/repositories/author_repository_impl.dart';
+import 'package:xanoo_admin/features/library/domain/repositories/author_repository.dart';
+import 'package:xanoo_admin/features/library/domain/usecases/fetch_all_authors.dart';
+import 'package:xanoo_admin/features/library/presentation/blocs/authors/author_bloc.dart';
 
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
   _initAuth();
+  _iniLibrary();
 
   final supabase = await Supabase.initialize(
     url: Secret.supabaseUrl,
@@ -24,6 +30,25 @@ Future<void> initDependencies() async {
 
   // Core
   sl.registerLazySingleton(() => AppUserCubit());
+}
+
+void _iniLibrary() {
+  sl
+    // Datasources
+    ..registerLazySingleton<AuthorSupabaseDS>(() => AuthorSupabaseDSImpl(sl()))
+
+    // Repositories
+    ..registerFactory<AuthorRepository>(() => AuthorRepositoryImpl(sl()))
+
+    //Usecases
+    ..registerFactory(() => FetchAllAuthors(sl()))
+
+    // Blocs
+    ..registerLazySingleton(
+      () => AuthorBloc(
+        fetchAllAuthors: sl(),
+      ),
+    );
 }
 
 void _initAuth() {

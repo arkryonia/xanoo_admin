@@ -1,10 +1,10 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:xanoo_admin/core/error/failure.dart';
 import 'package:xanoo_admin/core/error/server_exception.dart';
-import 'package:xanoo_admin/features/authors/data/datasources/author_supabase_d_s.dart';
-import 'package:xanoo_admin/features/authors/data/models/author_model.dart';
-import 'package:xanoo_admin/features/authors/domain/entities/author.dart';
-import 'package:xanoo_admin/features/authors/domain/repositories/author_repository.dart';
+import 'package:xanoo_admin/features/library/data/datasources/author_supabase_d_s.dart';
+import 'package:xanoo_admin/features/library/data/models/author_model.dart';
+import 'package:xanoo_admin/core/common/entities/author.dart';
+import 'package:xanoo_admin/features/library/domain/repositories/author_repository.dart';
 
 class AuthorRepositoryImpl implements AuthorRepository {
   final AuthorSupabaseDS authorSupabaseDS;
