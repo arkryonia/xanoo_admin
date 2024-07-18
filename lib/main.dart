@@ -30,6 +30,7 @@ Future<void> main() async {
           create: (_) => AuthorBloc(
             fetchAllAuthors: sl(),
             deleteAuthor: sl(),
+            createAuthor: sl(),
           ),
         ),
       ],

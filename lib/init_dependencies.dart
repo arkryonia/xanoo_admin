@@ -12,6 +12,7 @@ import 'package:xanoo_admin/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:xanoo_admin/features/library/data/datasources/author_supabase_d_s.dart';
 import 'package:xanoo_admin/features/library/data/repositories/author_repository_impl.dart';
 import 'package:xanoo_admin/features/library/domain/repositories/author_repository.dart';
+import 'package:xanoo_admin/features/library/domain/usecases/create_author.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/delete_author.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/fetch_all_authors.dart';
 import 'package:xanoo_admin/features/library/presentation/blocs/authors/author_bloc.dart';
@@ -44,12 +45,14 @@ void _iniLibrary() {
     //Usecases
     ..registerFactory(() => FetchAllAuthors(sl()))
     ..registerFactory(() => DeleteAuthor(sl()))
+    ..registerFactory(() => CreateAuthor(sl()))
 
     // Blocs
     ..registerLazySingleton(
       () => AuthorBloc(
         fetchAllAuthors: sl(),
         deleteAuthor: sl(),
+        createAuthor: sl(),
       ),
     );
 }

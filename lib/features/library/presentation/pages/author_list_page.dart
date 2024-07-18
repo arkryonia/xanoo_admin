@@ -5,9 +5,16 @@ import 'package:xanoo_admin/core/common/entities/author.dart';
 import 'package:xanoo_admin/core/widgets/loading_widget.dart';
 import 'package:xanoo_admin/core/widgets/widget_helpers.dart';
 import 'package:xanoo_admin/features/library/presentation/blocs/authors/author_bloc.dart';
+import 'package:xanoo_admin/features/library/presentation/pages/author_create_page.dart';
 
 class AuthorListPage extends StatefulWidget {
   const AuthorListPage({super.key});
+
+  static MaterialPageRoute goToAuthorCreatePage() {
+    return MaterialPageRoute(
+      builder: (_) => const AuthorCreatePage(),
+    );
+  }
 
   @override
   State<AuthorListPage> createState() => _AuthorListPageState();
@@ -33,7 +40,12 @@ class _AuthorListPageState extends State<AuthorListPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                AuthorListPage.goToAuthorCreatePage(),
+              );
+            },
             icon: const Icon(Icons.add_circle_outline),
           ),
           const Gap(20),
@@ -53,67 +65,73 @@ class _AuthorListPageState extends State<AuthorListPage> {
           if (state is AuthorLoading) {
             return const LoadingWidget();
           }
-          return ListView.separated(
-            padding: const EdgeInsets.all(8),
-            itemCount: authors.length,
-            itemBuilder: (BuildContext context, int index) {
-              return SizedBox(
-                height: 60,
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
+          return authors.isEmpty
+              ? const Center(
+                  child: Text("Pas d'auteurs disponibles"),
+                )
+              : ListView.separated(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: authors.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      height: 60,
+                      child: ListTile(
+                        title: Row(
                           children: [
-                            authors[index].gender == 'M'
-                                ? const Text('M.')
-                                : const Text('Mme'),
-                            const Gap(10),
-                            Text('${authors[index].firstName} '),
-                            Text(
-                              authors[index].lastName.toUpperCase(),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
+                            Expanded(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  authors[index].gender == 'M'
+                                      ? const Text('M.')
+                                      : const Text('Mme'),
+                                  const Gap(10),
+                                  Text('${authors[index].firstName} '),
+                                  Text(
+                                    authors[index].lastName.toUpperCase(),
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
                               ),
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.edit_note,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                                const Gap(20),
+                                IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<AuthorBloc>()
+                                        .add(AuthorDelete(authors[index].id));
+                                    context
+                                        .read<AuthorBloc>()
+                                        .add(AuthorFetchAll());
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete_forever,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.edit_note,
-                              color: Colors.green,
-                            ),
-                          ),
-                          const Gap(20),
-                          IconButton(
-                            onPressed: () {
-                              context
-                                  .read<AuthorBloc>()
-                                  .add(AuthorDelete(authors[index].id));
-                              context.read<AuthorBloc>().add(AuthorFetchAll());
-                            },
-                            icon: const Icon(
-                              Icons.delete_forever,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return const Divider(height: 0);
-            },
-          );
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider(height: 0);
+                  },
+                );
         },
       ),
     );
