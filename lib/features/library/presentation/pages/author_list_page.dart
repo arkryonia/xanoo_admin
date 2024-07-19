@@ -6,6 +6,7 @@ import 'package:xanoo_admin/core/widgets/loading_widget.dart';
 import 'package:xanoo_admin/core/widgets/widget_helpers.dart';
 import 'package:xanoo_admin/features/library/presentation/blocs/authors/author_bloc.dart';
 import 'package:xanoo_admin/features/library/presentation/pages/author_create_page.dart';
+import 'package:xanoo_admin/features/library/presentation/pages/author_update_page.dart';
 
 class AuthorListPage extends StatefulWidget {
   const AuthorListPage({super.key});
@@ -100,7 +101,18 @@ class _AuthorListPageState extends State<AuthorListPage> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return AuthorUpdatePage(
+                                            author: authors[index],
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
                                   icon: const Icon(
                                     Icons.edit_note,
                                     color: Colors.green,

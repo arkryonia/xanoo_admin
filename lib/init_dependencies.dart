@@ -15,6 +15,8 @@ import 'package:xanoo_admin/features/library/domain/repositories/author_reposito
 import 'package:xanoo_admin/features/library/domain/usecases/create_author.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/delete_author.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/fetch_all_authors.dart';
+import 'package:xanoo_admin/features/library/domain/usecases/read_author.dart';
+import 'package:xanoo_admin/features/library/domain/usecases/update_author.dart';
 import 'package:xanoo_admin/features/library/presentation/blocs/authors/author_bloc.dart';
 
 final sl = GetIt.instance;
@@ -46,6 +48,8 @@ void _iniLibrary() {
     ..registerFactory(() => FetchAllAuthors(sl()))
     ..registerFactory(() => DeleteAuthor(sl()))
     ..registerFactory(() => CreateAuthor(sl()))
+    ..registerFactory(() => ReadAuthor(sl()))
+    ..registerFactory(() => UpdateAuthor(sl()))
 
     // Blocs
     ..registerLazySingleton(
@@ -53,6 +57,8 @@ void _iniLibrary() {
         fetchAllAuthors: sl(),
         deleteAuthor: sl(),
         createAuthor: sl(),
+        readAuthor: sl(),
+        updateAuthor: sl(),
       ),
     );
 }

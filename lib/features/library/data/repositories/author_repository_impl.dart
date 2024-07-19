@@ -61,12 +61,17 @@ class AuthorRepositoryImpl implements AuthorRepository {
 
   @override
   Future<Either<Failure, Author>> update({
-    required String id,
     required Author author,
   }) async {
     try {
-      final response =
-          await authorSupabaseDS.update(id: id, author: author as AuthorModel);
+      AuthorModel nAuthor = AuthorModel(
+        id: author.id,
+        gender: author.gender,
+        firstName: author.firstName,
+        lastName: author.lastName,
+      );
+
+      final response = await authorSupabaseDS.update(author: nAuthor);
       return right(response);
     } on ServerException catch (e) {
       return left(Failure(e.message));

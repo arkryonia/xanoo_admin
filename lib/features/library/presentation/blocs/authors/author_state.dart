@@ -15,6 +15,12 @@ final class AuthorFecthAllSuccess extends AuthorState {
   AuthorFecthAllSuccess(this.authors);
 }
 
+final class AuthorGetOneSuccess extends AuthorState {
+  final Author author;
+
+  AuthorGetOneSuccess(this.author);
+}
+
 final class AuthorFailure extends AuthorState {
   final String message;
 

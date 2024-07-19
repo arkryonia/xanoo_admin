@@ -9,6 +9,6 @@ class AuthLogin extends AuthEvent {
   AuthLogin(this.params);
 }
 
-class AuthLogout extends AuthEvent {}
+final class AuthLogout extends AuthEvent {}
 
 final class AuthIsUserLoggedIn extends AuthEvent {}

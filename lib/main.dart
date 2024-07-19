@@ -31,6 +31,8 @@ Future<void> main() async {
             fetchAllAuthors: sl(),
             deleteAuthor: sl(),
             createAuthor: sl(),
+            readAuthor: sl(),
+            updateAuthor: sl(),
           ),
         ),
       ],

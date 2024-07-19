@@ -12,7 +12,6 @@ abstract interface class AuthorSupabaseDS {
   Future<AuthorModel> read({required String id});
 
   Future<AuthorModel> update({
-    required String id,
     required AuthorModel author,
   });
 
@@ -76,14 +75,13 @@ class AuthorSupabaseDSImpl implements AuthorSupabaseDS {
 
   @override
   Future<AuthorModel> update({
-    required String id,
     required AuthorModel author,
   }) async {
     try {
       final response = await remoteClient
           .from('authors')
           .update(author.toMap())
-          .eq('id', id)
+          .eq('id', author.id)
           .select();
       return AuthorModel.fromMap(response.first);
     } on PostgrestException catch (e) {

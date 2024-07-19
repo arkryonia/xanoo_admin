@@ -18,7 +18,6 @@ abstract interface class AuthorRepository {
 
   // Update
   Future<Either<Failure, Author>> update({
-    required String id,
     required Author author,
   });
 
