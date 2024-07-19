@@ -42,7 +42,11 @@ class AuthRepositroryImpl implements AuthRepository {
     try {
       final response = await authRemoteDatasouce.getCurrentUser();
 
-      return right(response as User);
+      if (response == null) {
+        return left(Failure("User is not logged in"));
+      }
+
+      return right(response);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }
