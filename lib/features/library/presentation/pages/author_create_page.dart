@@ -40,6 +40,7 @@ class _AuthorCreatePageState extends State<AuthorCreatePage> {
         }
 
         if (state is AuthorSuccess) {
+          context.read<AuthorBloc>().add(AuthorFetchAll());
           Navigator.pop(
             context,
             AuthorCreatePage.goToListAuthorsPage(),

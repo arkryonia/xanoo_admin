@@ -61,6 +61,9 @@ class _AuthorListPageState extends State<AuthorListPage> {
           if (state is AuthorFecthAllSuccess) {
             authors = state.authors;
           }
+          if (state is AuthorSuccess) {
+            context.read<AuthorBloc>().add(AuthorFetchAll());
+          }
         },
         builder: (context, state) {
           if (state is AuthorLoading) {
