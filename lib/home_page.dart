@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:xanoo_admin/core/widgets/loading_widget.dart';
 import 'package:xanoo_admin/core/widgets/widget_helpers.dart';
 import 'package:xanoo_admin/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:xanoo_admin/features/library/presentation/pages/document_list_page.dart';
 import 'package:xanoo_admin/features/auth/presentation/pages/login_page.dart';
 import 'package:xanoo_admin/features/library/presentation/pages/author_list_page.dart';
 
@@ -19,6 +20,12 @@ class HomePage extends StatelessWidget {
   static MaterialPageRoute goToAuthorListPage() {
     return MaterialPageRoute(
       builder: (context) => const AuthorListPage(),
+    );
+  }
+
+  static MaterialPageRoute goToListDocumentsPage() {
+    return MaterialPageRoute(
+      builder: (context) => const ListDocumentsPage(),
     );
   }
 
@@ -46,6 +53,12 @@ class HomePage extends StatelessWidget {
             ),
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context, HomePage.goToListDocumentsPage());
+                },
+                icon: const Icon(Icons.auto_stories),
+              ),
               IconButton(
                 onPressed: () {
                   Navigator.push(context, HomePage.goToAuthorListPage());
