@@ -10,20 +10,26 @@ import 'package:xanoo_admin/features/auth/domain/usecases/login_user.dart';
 import 'package:xanoo_admin/features/auth/domain/usecases/logout_user.dart';
 import 'package:xanoo_admin/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:xanoo_admin/features/library/data/datasources/author_supabase_d_s.dart';
+import 'package:xanoo_admin/features/library/data/datasources/document_supabase_d_s.dart';
 import 'package:xanoo_admin/features/library/data/repositories/author_repository_impl.dart';
+import 'package:xanoo_admin/features/library/data/repositories/document_repository_impl.dart';
 import 'package:xanoo_admin/features/library/domain/repositories/author_repository.dart';
+import 'package:xanoo_admin/features/library/domain/repositories/document_repository.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/create_author.dart';
+import 'package:xanoo_admin/features/library/domain/usecases/create_document.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/delete_author.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/fetch_all_authors.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/read_author.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/update_author.dart';
 import 'package:xanoo_admin/features/library/presentation/blocs/authors/author_bloc.dart';
+import 'package:xanoo_admin/features/library/presentation/blocs/document/document_bloc.dart';
 
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
   _initAuth();
   _iniLibrary();
+  _initDocument();
 
   final supabase = await Supabase.initialize(
     url: Secret.supabaseUrl,
@@ -83,6 +89,25 @@ void _initAuth() {
         logoutUser: sl(),
         currentUser: sl(),
         appUserCubit: sl(),
+      ),
+    );
+}
+
+void _initDocument() {
+  sl
+    // Datasource
+    ..registerFactory<DocumentSupabaseDS>(() => DocumentSupabaseDSImpl(sl()))
+
+    // Repository
+    ..registerFactory<DocumentRepository>(() => DocumentRepositoryImpl(sl()))
+
+    // Usecases
+    ..registerFactory(() => CreateDocument(sl()))
+
+    // Blocs
+    ..registerLazySingleton(
+      () => DocumentBloc(
+        createDocument: sl(),
       ),
     );
 }
