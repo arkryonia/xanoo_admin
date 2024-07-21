@@ -3,16 +3,15 @@ import 'dart:io';
 import 'package:fpdart/fpdart.dart';
 import 'package:xanoo_admin/core/error/failure.dart';
 import 'package:xanoo_admin/core/usecases/use_case.dart';
-import 'package:xanoo_admin/features/library/domain/entities/document.dart';
 import 'package:xanoo_admin/features/library/domain/repositories/document_repository.dart';
 
-class CreateDocument implements UseCase<Document, DocumentParams> {
+class CreateDocument implements UseCase<void, DocumentParams> {
   final DocumentRepository documentRepository;
 
   CreateDocument(this.documentRepository);
 
   @override
-  Future<Either<Failure, Document>> call(DocumentParams params) async {
+  Future<Either<Failure, void>> call(DocumentParams params) async {
     return await documentRepository.create(
       title: params.title,
       description: params.description,
