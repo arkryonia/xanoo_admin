@@ -33,7 +33,6 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
 
   // Liste des natures de document
   final List<String> _natureList = [
-    '',
     'Livre',
     'Article',
     'Thèse',
@@ -85,7 +84,7 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
           showSnakeBar(context, state.message);
         }
         if (state is DocumentSuccess) {
-          showSnakeBar(context, 'Document created');
+          showSnakeBar(context, 'Document created', Colors.green);
         }
       },
       builder: (context, state) {
@@ -115,14 +114,14 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                             return null;
                           },
                         ),
-                        const Gap(20),
+                        const Gap(15),
                         TextFormField(
                           controller: _description,
                           decoration:
                               const InputDecoration(labelText: 'Description'),
                           maxLines: 3,
                         ),
-                        const Gap(20),
+                        const Gap(15),
                         DropdownButtonFormField<String>(
                           value: _selectedNature,
                           decoration: const InputDecoration(
@@ -150,7 +149,7 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                             return null;
                           },
                         ),
-                        const Gap(20),
+                        const Gap(15),
                         ElevatedButton(
                           onPressed: () => _pickFile(false),
                           style: ElevatedButton.styleFrom(
@@ -161,7 +160,7 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                               ? 'Sélectionner un fichier'
                               : 'Fichier ajouté'),
                         ),
-                        const Gap(20),
+                        const Gap(15),
                         ElevatedButton(
                           onPressed: () => _pickFile(true),
                           style: ElevatedButton.styleFrom(
@@ -172,7 +171,7 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                               ? 'Sélectionner une couverture'
                               : 'Couverture ajoutée'),
                         ),
-                        const Gap(20),
+                        const Gap(15),
                         Row(
                           children: [
                             Expanded(
@@ -190,7 +189,7 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                             ),
                           ],
                         ),
-                        const Gap(20),
+                        const Gap(15),
                         Wrap(
                           spacing: 8.0,
                           children: _tags
@@ -204,7 +203,7 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                                   ))
                               .toList(),
                         ),
-                        const Gap(20),
+                        const Gap(15),
                         BlocBuilder<AuthorBloc, AuthorState>(
                           builder: (context, state) {
                             if (state is AuthorFecthAllSuccess) {
@@ -231,10 +230,12 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                                   });
                                   _author.clear();
                                 },
-                                fieldViewBuilder: (context,
-                                    fieldTextEditingController,
-                                    fieldFocusNode,
-                                    onFieldSubmitted) {
+                                fieldViewBuilder: (
+                                  context,
+                                  fieldTextEditingController,
+                                  fieldFocusNode,
+                                  onFieldSubmitted,
+                                ) {
                                   return TextFormField(
                                     controller: fieldTextEditingController,
                                     focusNode: fieldFocusNode,
@@ -283,7 +284,7 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                             }
                           },
                         ),
-                        const Gap(20),
+                        const Gap(15),
                         Wrap(
                           spacing: 8.0,
                           children: _selectedAuthors
@@ -298,10 +299,9 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                                   ))
                               .toList(),
                         ),
-                        const Gap(20),
+                        const Gap(15),
                         XGreenElevatedButton(
                           onPressed: () {
-                            print(_file);
                             if (_formKey.currentState!.validate()) {
                               if (_cover == null || _file == null) {
                                 showSnakeBar(context, 'Ajouter les assets');

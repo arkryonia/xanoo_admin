@@ -83,10 +83,14 @@ class AuthorSupabaseDSImpl implements AuthorSupabaseDS {
           .update(author.toMap())
           .eq('id', author.id)
           .select();
+      // TODO: : Bug to fix. -> Record new has no file "email"
+      print("Succès dans la mise à jour");
       return AuthorModel.fromMap(response.first);
     } on PostgrestException catch (e) {
+      print("Échec dans la mise à jour venant de PG");
       throw ServerException(e.message);
     } catch (e) {
+      print("Autres Échecs");
       throw ServerException(e.toString());
     }
   }

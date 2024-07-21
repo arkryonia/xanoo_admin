@@ -45,9 +45,7 @@ class AuthorBloc extends Bloc<AuthorEvent, AuthorState> {
     Emitter<AuthorState> emit,
   ) async {
     final response = await _updateAuthor(
-      AuthorUpdateParams(
-        author: event.author,
-      ),
+      AuthorUpdateParams(author: event.author),
     );
 
     response.fold(

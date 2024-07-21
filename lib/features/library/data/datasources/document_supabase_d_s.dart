@@ -44,7 +44,6 @@ class DocumentSupabaseDSImpl implements DocumentSupabaseDS {
     bool isCover = false,
   }) async {
     String path = isCover ? 'covers/${document.id}' : 'docs/${document.id}';
-    print('$asset ---- from datasource --- ${document.id}');
     try {
       await remoteClient.storage.from('assets').upload(path, asset);
       return remoteClient.storage.from('assets').getPublicUrl(document.id);
