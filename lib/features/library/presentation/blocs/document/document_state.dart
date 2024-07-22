@@ -14,3 +14,10 @@ final class DocumentFailure extends DocumentState {
 }
 
 final class DocumentSuccess extends DocumentState {}
+
+final class DocumentFetchAllSuccess extends DocumentState {
+  // TODO: Refactor Document Entity
+  final List<Document> documents;
+
+  DocumentFetchAllSuccess(this.documents);
+}

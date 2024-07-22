@@ -6,7 +6,7 @@ import 'package:xanoo_admin/features/library/domain/entities/document.dart';
 
 abstract interface class DocumentRepository {
   Future<Either<Failure, List<Document>>> fetchAll();
-  Future<Either<Failure, void>> create({
+  Future<Either<Failure, Document>> create({
     required String title,
     required String description,
     required String nature,

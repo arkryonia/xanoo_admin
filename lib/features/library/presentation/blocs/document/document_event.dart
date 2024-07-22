@@ -22,3 +22,5 @@ final class DocumentCreate extends DocumentEvent {
     required this.tags,
   });
 }
+
+final class DocumentFetchAll extends DocumentEvent {}

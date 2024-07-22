@@ -39,6 +39,7 @@ Future<void> main() async {
         BlocProvider(
           create: (_) => DocumentBloc(
             createDocument: sl(),
+            fetchAllDocuments: sl(),
           ),
         ),
       ],

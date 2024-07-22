@@ -277,7 +277,9 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                                 },
                               );
                             } else if (state is AuthorLoading) {
-                              return const CircularProgressIndicator();
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
                             } else {
                               return const Text(
                                   'Erreur lors du chargement des auteurs');

@@ -15,7 +15,7 @@ class DocumentRepositoryImpl implements DocumentRepository {
   DocumentRepositoryImpl(this.documentSupabaseDS);
 
   @override
-  Future<Either<Failure, void>> create({
+  Future<Either<Failure, Document>> create({
     required String title,
     required String description,
     required String nature,
@@ -51,8 +51,8 @@ class DocumentRepositoryImpl implements DocumentRepository {
         coverPath: coverPath,
       );
 
-      await documentSupabaseDS.create(document: document);
-      return right(null);
+      final response = await documentSupabaseDS.create(document: document);
+      return right(response);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     } catch (e) {
@@ -61,8 +61,12 @@ class DocumentRepositoryImpl implements DocumentRepository {
   }
 
   @override
-  Future<Either<Failure, List<Document>>> fetchAll() {
-    // TODO: implement fetchAll
-    throw UnimplementedError();
+  Future<Either<Failure, List<Document>>> fetchAll() async {
+    try {
+      final response = await documentSupabaseDS.fetchAll();
+      return right(response);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
   }
 }

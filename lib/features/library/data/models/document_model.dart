@@ -57,8 +57,8 @@ class DocumentModel extends Document {
       nature: map['nature'] ?? '',
       filePath: map['file_url'] ?? '',
       coverPath: map['cover_url'] ?? '',
-      authors: List<String>.from(map['authors']),
-      tags: List<String>.from(map['tags']),
+      authors: (map['authors'] as List<dynamic>?)?.cast<String>() ?? [],
+      tags: (map['tags'] as List<dynamic>?)?.cast<String>() ?? [],
     );
   }
 
