@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
 
   static MaterialPageRoute goToListDocumentsPage() {
     return MaterialPageRoute(
-      builder: (context) => const ListDocumentsPage(),
+      builder: (context) => const DocumentListPage(),
     );
   }
 

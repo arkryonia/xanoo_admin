@@ -10,9 +10,16 @@ import 'package:xanoo_admin/core/widgets/widget_helpers.dart';
 import 'package:xanoo_admin/core/widgets/x_green_elevated_button.dart';
 import 'package:xanoo_admin/features/library/presentation/blocs/authors/author_bloc.dart';
 import 'package:xanoo_admin/features/library/presentation/blocs/document/document_bloc.dart';
+import 'package:xanoo_admin/features/library/presentation/pages/document_list_page.dart';
 
 class DocumentCreatePage extends StatefulWidget {
   const DocumentCreatePage({super.key});
+
+  static MaterialPageRoute goToDocumentListPage() {
+    return MaterialPageRoute(
+      builder: (context) => const DocumentListPage(),
+    );
+  }
 
   @override
   State<DocumentCreatePage> createState() => _DocumentCreatePageState();
@@ -85,6 +92,8 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
         }
         if (state is DocumentSuccess) {
           showSnakeBar(context, 'Document created', Colors.green);
+          context.read<DocumentBloc>().add(DocumentFetchAll());
+          Navigator.pop(context);
         }
       },
       builder: (context, state) {

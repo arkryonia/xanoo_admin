@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:supabase/supabase.dart';
@@ -13,6 +14,8 @@ abstract interface class DocumentSupabaseDS {
   });
 
   Future<List<DocumentModel>> fetchAll();
+
+  Future<void> delete({required String id});
 }
 
 class DocumentSupabaseDSImpl implements DocumentSupabaseDS {
@@ -33,8 +36,8 @@ class DocumentSupabaseDSImpl implements DocumentSupabaseDS {
         'p_author_ids': document.authors,
       });
 
-      print('Réponse brute reçue : $response');
-      print('Type de la réponse : ${response.runtimeType}');
+      log('Réponse brute reçue : $response');
+      log('Type de la réponse : ${response.runtimeType}');
 
       if (response == null) {
         throw ServerException('No data returned from insert_document function');
@@ -43,20 +46,20 @@ class DocumentSupabaseDSImpl implements DocumentSupabaseDS {
       if (response is List && response.isNotEmpty) {
         final documentData = response.first;
         if (documentData is Map<String, dynamic>) {
-          print('Création du DocumentModel avec les données : $documentData');
+          log('Création du DocumentModel avec les données : $documentData');
           return DocumentModel.fromMap(documentData);
         }
       }
 
-      print('Réponse non conforme : $response');
+      log('Réponse non conforme : $response');
       throw ServerException(
         'Unexpected response format from insert_document function',
       );
     } on PostgrestException catch (e) {
-      print('PostgrestException attrapée : ${e.message}');
+      log('PostgrestException attrapée : ${e.message}');
       throw ServerException(e.message);
     } catch (e) {
-      print('Exception inattendue attrapée : $e');
+      log('Exception inattendue attrapée : $e');
       throw ServerException(e.toString());
     }
   }
@@ -83,14 +86,53 @@ class DocumentSupabaseDSImpl implements DocumentSupabaseDS {
   @override
   Future<List<DocumentModel>> fetchAll() async {
     try {
-      final response = await remoteClient
-          .from('documents')
-          .select('title, nature, authors(id, first_name, last_name)');
+      final response = await remoteClient.from('documents').select('''
+          id,
+          title,
+          description,
+          nature,
+          file_url,
+          cover_url,
+          tags,
+          authors (
+            id,
+            first_name,
+            last_name
+          )
+        ''');
 
-      print(response);
-      return [];
+      final List<dynamic> data = response as List<dynamic>;
+      return data.map((documentData) {
+        final List<dynamic> authorsData =
+            documentData['authors'] as List<dynamic>;
+        final List<String> authors = authorsData.map((author) {
+          return '${author['first_name']} ${author['last_name']}';
+        }).toList();
+
+        return DocumentModel(
+          id: documentData['id'],
+          title: documentData['title'],
+          description: documentData['description'],
+          nature: documentData['nature'],
+          filePath: documentData['file_url'],
+          coverPath: documentData['cover_url'],
+          tags: List<String>.from(documentData['tags']),
+          authors: authors,
+        );
+      }).toList();
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> delete({required String id}) async {
+    try {
+      await remoteClient.from('documents').delete().eq('id', id);
+    } on PostgrestException catch (e) {
+      ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }

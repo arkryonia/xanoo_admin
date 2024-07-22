@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class Document {
   final String id;
   final String title;
@@ -20,8 +18,4 @@ class Document {
     required this.authors,
     required this.tags,
   });
-
-  // Helper methods to get File objects when needed
-  File get file => File(filePath);
-  File get cover => File(coverPath);
 }

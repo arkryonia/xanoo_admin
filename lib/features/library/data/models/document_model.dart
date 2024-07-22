@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:xanoo_admin/features/library/domain/entities/document.dart';
+import 'package:xanoo_admin/core/common/entities/document.dart';
 
 class DocumentModel extends Document {
   DocumentModel({
@@ -66,4 +66,9 @@ class DocumentModel extends Document {
 
   factory DocumentModel.fromJson(String source) =>
       DocumentModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'Document(id: $id, title: $title, description: $description, nature: $nature, filePath: $filePath, coverPath: $coverPath, authors: $authors, tags: $tags)';
+  }
 }

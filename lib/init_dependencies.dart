@@ -18,6 +18,7 @@ import 'package:xanoo_admin/features/library/domain/repositories/document_reposi
 import 'package:xanoo_admin/features/library/domain/usecases/create_author.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/create_document.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/delete_author.dart';
+import 'package:xanoo_admin/features/library/domain/usecases/delete_document.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/fetch_all_authors.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/fetch_all_documents.dart';
 import 'package:xanoo_admin/features/library/domain/usecases/read_author.dart';
@@ -105,12 +106,14 @@ void _initDocument() {
     // Usecases
     ..registerFactory(() => CreateDocument(sl()))
     ..registerFactory(() => FetchAllDocuments(sl()))
+    ..registerFactory(() => DeleteDocument(sl()))
 
     // Blocs
     ..registerLazySingleton(
       () => DocumentBloc(
         createDocument: sl(),
         fetchAllDocuments: sl(),
+        deleteDocument: sl(),
       ),
     );
 }

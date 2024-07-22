@@ -24,3 +24,9 @@ final class DocumentCreate extends DocumentEvent {
 }
 
 final class DocumentFetchAll extends DocumentEvent {}
+
+final class DocumentDelete extends DocumentEvent {
+  final String id;
+
+  DocumentDelete(this.id);
+}

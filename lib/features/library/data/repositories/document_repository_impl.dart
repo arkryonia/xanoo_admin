@@ -6,7 +6,7 @@ import 'package:xanoo_admin/core/error/failure.dart';
 import 'package:xanoo_admin/core/error/server_exception.dart';
 import 'package:xanoo_admin/features/library/data/datasources/document_supabase_d_s.dart';
 import 'package:xanoo_admin/features/library/data/models/document_model.dart';
-import 'package:xanoo_admin/features/library/domain/entities/document.dart';
+import 'package:xanoo_admin/core/common/entities/document.dart';
 import 'package:xanoo_admin/features/library/domain/repositories/document_repository.dart';
 
 class DocumentRepositoryImpl implements DocumentRepository {
@@ -65,6 +65,16 @@ class DocumentRepositoryImpl implements DocumentRepository {
     try {
       final response = await documentSupabaseDS.fetchAll();
       return right(response);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> delete({required String id}) async {
+    try {
+      await documentSupabaseDS.delete(id: id);
+      return right(null);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }

@@ -40,6 +40,7 @@ Future<void> main() async {
           create: (_) => DocumentBloc(
             createDocument: sl(),
             fetchAllDocuments: sl(),
+            deleteDocument: sl(),
           ),
         ),
       ],

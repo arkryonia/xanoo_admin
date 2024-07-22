@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:fpdart/fpdart.dart';
 import 'package:xanoo_admin/core/error/failure.dart';
 import 'package:xanoo_admin/core/usecases/use_case.dart';
-import 'package:xanoo_admin/features/library/domain/entities/document.dart';
+import 'package:xanoo_admin/core/common/entities/document.dart';
 import 'package:xanoo_admin/features/library/domain/repositories/document_repository.dart';
 
 class CreateDocument implements UseCase<void, DocumentParams> {

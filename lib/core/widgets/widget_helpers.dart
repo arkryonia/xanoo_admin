@@ -9,7 +9,7 @@ void showSnakeBar(
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        duration: const Duration(minutes: 1),
+        // duration: const Duration(minutes: 1),
         content: Text(message),
         backgroundColor: color,
       ),
