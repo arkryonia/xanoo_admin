@@ -69,8 +69,8 @@ class _XanooState extends State<Xanoo> {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme(),
       home: BlocSelector<AuthBloc, AuthState, bool>(
-        selector: (userIsLoggedIn) {
-          return true;
+        selector: (state) {
+          return state is AuthIsUserLoggedIn;
         },
         builder: (context, isUserLogin) {
           return isUserLogin ? const HomePage() : const LoginPage();

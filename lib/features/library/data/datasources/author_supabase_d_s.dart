@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:xanoo_admin/core/error/server_exception.dart';
 import 'package:xanoo_admin/features/library/data/models/author_model.dart';
@@ -85,8 +83,7 @@ class AuthorSupabaseDSImpl implements AuthorSupabaseDS {
           .update(author.toMap())
           .eq('id', author.id)
           .select();
-      // TODO: : Bug to fix. -> Record new has no file "email"
-      log("Succès dans la mise à jour");
+
       return AuthorModel.fromMap(response.first);
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
