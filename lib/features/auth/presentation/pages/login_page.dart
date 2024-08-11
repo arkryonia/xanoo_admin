@@ -49,7 +49,10 @@ class _LoginPageState extends State<LoginPage> {
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthFailure) {
-              showSnakeBar(context, state.message);
+              if (state.message != 'User is not logged in') {
+                showSnakeBar(context, state.message);
+              }
+              showSnakeBar(context, "Connectez-vous!", Colors.blue);
             }
             if (state is AuthSuccess) {
               Navigator.pushReplacement(

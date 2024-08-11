@@ -67,6 +67,7 @@ class _XanooState extends State<Xanoo> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: "Xanoo Admin",
       theme: AppTheme.theme(),
       home: BlocSelector<AuthBloc, AuthState, bool>(
         selector: (state) {
