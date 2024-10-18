@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -55,6 +57,7 @@ class _DocumentListPageState extends State<DocumentListPage> {
         listener: (context, state) {
           if (state is DocumentFailure) {
             showSnakeBar(context, state.message);
+            log(state.message);
           }
           if (state is DocumentFetchAllSuccess) {
             documents = state.documents;
