@@ -70,15 +70,35 @@ class DocumentSupabaseDSImpl implements DocumentSupabaseDS {
     required DocumentModel document,
     bool isCover = false,
   }) async {
-    String path = isCover ? 'covers/${document.id}' : 'docs/${document.id}';
+    // Construire le chemin avec l'extension du fichier
+    String fileName = asset.path.split('/').last;
+    String extension = fileName.split('.').last;
+    String path = isCover
+        ? 'covers/${document.id}.$extension'
+        : 'docs/${document.id}.$extension';
+
     try {
-      await remoteClient.storage.from('assets').upload(path, asset);
-      return remoteClient.storage.from('assets').getPublicUrl(document.id);
+      // Upload du fichier
+      await remoteClient.storage.from('assets').upload(
+            path,
+            asset,
+            fileOptions: const FileOptions(cacheControl: '3600', upsert: true),
+          );
+
+      // Récupération de l'URL publique
+      final String publicUrl =
+          remoteClient.storage.from('assets').getPublicUrl(path);
+
+      log('Generated public URL: $publicUrl');
+      return publicUrl;
     } on PostgrestException catch (e) {
+      log('PostgrestException during upload: ${e.message}');
       throw ServerException(e.message);
     } on StorageException catch (e) {
+      log('StorageException during upload: ${e.message}');
       throw ServerException(e.message);
     } catch (e) {
+      log('Unexpected error during upload: $e');
       throw ServerException(e.toString());
     }
   }
@@ -132,7 +152,7 @@ class DocumentSupabaseDSImpl implements DocumentSupabaseDS {
     try {
       await remoteClient.from('documents').delete().eq('id', id);
     } on PostgrestException catch (e) {
-      ServerException(e.message);
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
