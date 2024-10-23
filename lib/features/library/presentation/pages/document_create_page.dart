@@ -33,6 +33,8 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
   final _author = TextEditingController();
 
   String? _selectedNature;
+  String? _selectedLanguage;
+
   File? _file;
   File? _cover;
   final List<String> _tags = [];
@@ -45,6 +47,16 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
     'Thèse',
     'Rapport',
     'Manuel'
+  ];
+
+  // Liste des langues de document
+  final List<String> _languageList = [
+    'Fongbe',
+    'Yoruba',
+    'Baatonum',
+    'Fulfulɖe',
+    'Dendi',
+    'Boo',
   ];
 
   @override
@@ -154,6 +166,35 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Veuillez sélectionner la nature du document';
+                            }
+                            return null;
+                          },
+                        ),
+                        const Gap(15),
+                        // Langues
+                        DropdownButtonFormField<String>(
+                          value: _selectedLanguage,
+                          decoration: const InputDecoration(
+                            labelText: 'Langue',
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 15,
+                            ),
+                          ),
+                          items: _languageList.map((String language) {
+                            return DropdownMenuItem(
+                              value: language,
+                              child: Text(language),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _selectedLanguage = newValue;
+                            });
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Veuillez sélectionner la langue du document';
                             }
                             return null;
                           },
@@ -322,6 +363,7 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                                         title: _title.text.trim(),
                                         description: _description.text.trim(),
                                         nature: _selectedNature!,
+                                        language: _selectedLanguage!,
                                         file: _file!,
                                         cover: _cover!,
                                         authors: _selectedAuthors

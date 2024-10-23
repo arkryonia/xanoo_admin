@@ -25,6 +25,17 @@ dependencies:
   gap: ^3.0.1
   flutter_switch: ^0.3.2
   supabase: ^2.2.4
+  icons_launcher: ^3.0.0
+  equatable: ^2.0.5
+
+icons_launcher:
+  image_path: "assets/icons/app_logo.png"
+  platforms:
+    linux:
+      enable: true
+      image_path: "assets/icons/app_logo.png"
+      icon_size: 128
+      output_path: "linux/snap/gui"
 
 dev_dependencies:
   flutter_test:

@@ -11,6 +11,7 @@ abstract interface class DocumentRepository {
     required String title,
     required String description,
     required String nature,
+    required String language,
     required File file,
     required File cover,
     required List<String> authors,

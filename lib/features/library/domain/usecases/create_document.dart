@@ -17,6 +17,7 @@ class CreateDocument implements UseCase<void, DocumentParams> {
       title: params.title,
       description: params.description,
       nature: params.nature,
+      language: params.language,
       file: params.file,
       cover: params.cover,
       authors: params.authors,
@@ -29,6 +30,7 @@ class DocumentParams {
   final String title;
   final String description;
   final String nature;
+  final String language;
   final File file;
   final File cover;
   final List<String> authors;
@@ -38,6 +40,7 @@ class DocumentParams {
     required this.title,
     required this.description,
     required this.nature,
+    required this.language,
     required this.file,
     required this.cover,
     required this.authors,

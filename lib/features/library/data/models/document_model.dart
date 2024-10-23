@@ -1,13 +1,12 @@
-import 'dart:convert';
-
 import 'package:xanoo_admin/core/common/entities/document.dart';
 
 class DocumentModel extends Document {
-  DocumentModel({
+  const DocumentModel({
     required super.id,
     required super.title,
     required super.description,
     required super.nature,
+    required super.language,
     required super.filePath,
     required super.coverPath,
     required super.authors,
@@ -19,6 +18,7 @@ class DocumentModel extends Document {
     String? title,
     String? description,
     String? nature,
+    String? language,
     String? filePath,
     String? coverPath,
     List<String>? authors,
@@ -29,6 +29,7 @@ class DocumentModel extends Document {
       title: title ?? this.title,
       description: description ?? this.description,
       nature: nature ?? this.nature,
+      language: language ?? this.language,
       filePath: filePath ?? this.filePath,
       coverPath: coverPath ?? this.coverPath,
       authors: authors ?? this.authors,
@@ -42,6 +43,7 @@ class DocumentModel extends Document {
       'title': title,
       'description': description,
       'nature': nature,
+      'language': language,
       'file_url': filePath,
       'cover_url': coverPath,
       'authors': authors,
@@ -55,20 +57,11 @@ class DocumentModel extends Document {
       title: map['title'] ?? '',
       description: map['description'] ?? '',
       nature: map['nature'] ?? '',
+      language: map['language'] ?? '',
       filePath: map['file_url'] ?? '',
       coverPath: map['cover_url'] ?? '',
       authors: (map['authors'] as List<dynamic>?)?.cast<String>() ?? [],
       tags: (map['tags'] as List<dynamic>?)?.cast<String>() ?? [],
     );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory DocumentModel.fromJson(String source) =>
-      DocumentModel.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'Document(id: $id, title: $title, description: $description, nature: $nature, filePath: $filePath, coverPath: $coverPath, authors: $authors, tags: $tags)';
   }
 }

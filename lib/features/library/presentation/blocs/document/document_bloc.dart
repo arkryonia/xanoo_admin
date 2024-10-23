@@ -59,6 +59,7 @@ class DocumentBloc extends Bloc<DocumentEvent, DocumentState> {
         title: event.title,
         description: event.description,
         nature: event.nature,
+        language: event.language,
         file: event.file,
         cover: event.cover,
         authors: event.authors,
