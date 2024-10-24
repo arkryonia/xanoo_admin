@@ -30,7 +30,7 @@ class DocumentSupabaseDSImpl implements DocumentSupabaseDS {
         'p_title': document.title,
         'p_description': document.description,
         'p_nature': document.nature,
-        'p_language': document.nature,
+        'p_language': document.language,
         'p_file_url': document.filePath,
         'p_cover_url': document.coverPath,
         'p_tags': document.tags,

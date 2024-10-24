@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -358,19 +359,21 @@ class _DocumentCreatePageState extends State<DocumentCreatePage> {
                               if (_cover == null || _file == null) {
                                 showSnakeBar(context, 'Ajouter les assets');
                               } else {
+                                var documentCreate = DocumentCreate(
+                                  title: _title.text.trim(),
+                                  description: _description.text.trim(),
+                                  nature: _selectedNature!,
+                                  language: _selectedLanguage!,
+                                  file: _file!,
+                                  cover: _cover!,
+                                  authors: _selectedAuthors
+                                      .map((value) => value.id)
+                                      .toList(),
+                                  tags: _tags,
+                                );
+                                log(documentCreate.language);
                                 context.read<DocumentBloc>().add(
-                                      DocumentCreate(
-                                        title: _title.text.trim(),
-                                        description: _description.text.trim(),
-                                        nature: _selectedNature!,
-                                        language: _selectedLanguage!,
-                                        file: _file!,
-                                        cover: _cover!,
-                                        authors: _selectedAuthors
-                                            .map((value) => value.id)
-                                            .toList(),
-                                        tags: _tags,
-                                      ),
+                                      documentCreate,
                                     );
                               }
                             }
