@@ -75,11 +75,14 @@ class HomePage extends StatelessWidget {
               const Gap(20),
             ],
           ),
-          body: const Center(
-            child: Text('Home Page : Dashboard'),
+          body: Center(
+            child: Text(
+              'Dashboard: Pas de données statistiques pour le moment',
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
           ),
         );
-      },
+      },  
     );
   }
 }
